@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
    const [mockedData, setMockedData] = useState([]);
    const [filteredData, setFilteredData] = useState([]);
+   const [summaryGridData, setSummaryGridData] = useState([]);
    
    const dataGridColumns = [
       { label: "View", key: "view", type: "link" },
@@ -20,6 +21,17 @@ function App() {
       { label: "Status", key: "status", editable: true, type: "string" },
       { label: "Created", key: "created", type: "date" },
       { label: "Modified", key: "modified", type: "date"},
+   ];
+
+   const summaryGridColumns = [
+      { label: "Total Projects", key: "total_projects", type: "string" },
+      { label: "", key: "s1", type: "span" },
+      { label: "", key: "s2", type: "span" },
+      { label: "", key: "s3", type: "span" },
+      { label: "Budget", key: "budget_total", format: "currency", type: "number" },
+      { label: "", key: "s4", type: "span" },
+      { label: "", key: "s5", type: "span" },
+      { label: "", key: "s6", type: "span" },
    ];
    
    const fetchMockedData = () => {
@@ -39,6 +51,7 @@ function App() {
             });
             setMockedData(indexedData);
             setFilteredData(indexedData);
+            setSummaryGridData(calculateSummaryGridData(indexedData));
          })
          .catch(function (e) {
             console.log("Error loading mocked data", e);
@@ -46,6 +59,16 @@ function App() {
    };
 
    useEffect(fetchMockedData, []);
+
+   const calculateSummaryGridData = (data) => {
+      //calculate summary grid data
+      return [{
+         total_projects: data.length,
+         budget_total: data.reduce(function(sum, project) {
+            return sum + project.budget;
+          }, 0)
+      }];
+   };
 
    const onFilterChangeHandler = (filters) => {
       let data = [...mockedData];
@@ -61,6 +84,7 @@ function App() {
       });
 
       setFilteredData(data);
+      setSummaryGridData(calculateSummaryGridData(data));
    };
    
    return (
@@ -102,7 +126,11 @@ function App() {
             </Row>
             <Row>
                <Col>
-                  Summary
+                  <DataGrid
+                     keyName="key"
+                     columns={summaryGridColumns}
+                     data={summaryGridData}
+                  />
                </Col>
             </Row>
          </Container>

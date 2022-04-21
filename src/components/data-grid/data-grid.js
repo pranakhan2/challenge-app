@@ -23,9 +23,11 @@ const DataGrid = ({ columns, data, keyName }) => {
             <tbody>
                {data.map((row) => {
                   return (<tr key={row[keyName]}>
-                     {columns.map((column) => {
+                     {columns.map((column, index) => {
                         if (column.type && column.type === "link") {
                            return (<td key={column.key}><Button variant="link">{column.label}</Button></td>);
+                        } else if (column.type && column.type === "span") {
+                           return (<td key={index}>&nbsp;&nbsp;&nbsp;&nbsp;</td>);
                         } else {
                            let columnValue = row[column.key];
                            columnValue = (column.format && column.format === "currency" ? currencyFormatter.format(columnValue) : columnValue);
