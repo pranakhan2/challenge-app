@@ -54,6 +54,8 @@ function App() {
          data = data.filter((project) => {
             if (filter.type !== "date") {
                return project[filter.key].includes(filter.value);
+            } else {
+               return moment(project[filter.key], "MM/DD/YYYY").isBetween(filter.startDate, filter.endDate);
             }
          });
       });

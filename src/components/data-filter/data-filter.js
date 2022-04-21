@@ -6,7 +6,6 @@ import moment from "moment";
 
 import "./data-filter.css";
 import "react-datepicker/dist/react-datepicker.css";
-import { createPortal } from "react-dom";
 
 const DataFilter = ({ columns, onChange }) => {
    const [ enabledFilters, setEnabledFilters ] = useState([]);
