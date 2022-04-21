@@ -7,6 +7,39 @@ import moment from "moment";
 import "./data-filter.css";
 import "react-datepicker/dist/react-datepicker.css";
 
+const ColumnPicker = ({columns, onColumnSelected }) => {
+   const defaultDropdownCaption = "Select Filter Column";
+   const [ dropdownCaption, setDropdownCaption ] = useState(defaultDropdownCaption)
+
+   const columnSelected = (column) => {
+      setDropdownCaption(column);
+      onColumnSelected(column);
+   };
+
+   const onReset = () => {
+      setDropdownCaption(defaultDropdownCaption);
+   }
+
+   return (
+      <Dropdown onSelect={columnSelected}>
+         <Dropdown.Toggle variant="success" id="dropdown-basic">
+            {dropdownCaption}
+         </Dropdown.Toggle>
+
+         <Dropdown.Menu>
+            {columns.map((column) => {
+               if (column.type && column.type !== "link") {
+                  return (<Dropdown.Item key={column.label} eventKey={column.label}>{column.label}</Dropdown.Item>);
+               } else {
+                  return "";
+               }
+            })}
+         </Dropdown.Menu>
+      </Dropdown>
+   );
+};
+
+
 const DataFilter = ({ columns, onChange }) => {
    const [ enabledFilters, setEnabledFilters ] = useState([]);
    const [ addFilterButtonEnabled, setAddFilterButtonEnabled ] = useState(true);
@@ -17,6 +50,8 @@ const DataFilter = ({ columns, onChange }) => {
    const [ startDateValue, setStartDateValue ] = useState(null);
    const [ endDateValue, setEndDateValue ] = useState(null);
    const [ selectedColumn, setSelectedColumn ] = useState({});
+
+
 
    const onColumnPickerSelect = (selectedColumn) => {
       // we recieve the column.label that was selected
@@ -39,44 +74,6 @@ const DataFilter = ({ columns, onChange }) => {
          setShowDatePickers(false)
          setShowStringInput(true);
       }
-   };
-
-   const resetFilterSelector = () => {
-      setResetColumnPicker(true);
-      setShowDatePickers(false);
-      setShowStringInput(false);
-   };
-
-   const ColumnPicker = ({columns, onColumnSelected, doReset }) => {
-      const defaultDropdownCaption = "Select Filter Column";
-      const [ dropdownCaption, setDropdownCaption ] = useState(defaultDropdownCaption)
-
-      const columnSelected = (column) => {
-         setDropdownCaption(column);
-         onColumnSelected(column);
-      };
-
-      const onReset = () => {
-         setDropdownCaption(defaultDropdownCaption);
-      }
-
-      return (
-         <Dropdown onSelect={columnSelected}>
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
-               {dropdownCaption}
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-               {columns.map((column) => {
-                  if (column.type && column.type !== "link") {
-                     return (<Dropdown.Item key={column.label} eventKey={column.label}>{column.label}</Dropdown.Item>);
-                  } else {
-                     return "";
-                  }
-               })}
-            </Dropdown.Menu>
-         </Dropdown>
-      );
    };
 
    const onAddFilterClick = () => {
