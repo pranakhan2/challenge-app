@@ -1,0 +1,39 @@
+#title {
+    text-align: center;
+    font-family: arial, sans-serif;
+  }
+  
+  .data-grid {
+    text-align: center;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    border: 3px solid #ddd;
+    width: 100%;
+  }
+  
+  .data-grid td, .data-grid th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .data-grid tr:nth-child(even){background-color: #f2f2f2;}
+  
+  .data-grid tr:hover {background-color: #ddd;}
+  
+  .data-grid th {
+    position: sticky;
+    z-index: auto;
+    top: 0;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #434343;
+    color: white;
+  }
+
+  .scroll-box {
+    height: 500px;
+    overflow-y: scroll;
+    border-bottom: 1px solid #ddd;
+  }
+  
