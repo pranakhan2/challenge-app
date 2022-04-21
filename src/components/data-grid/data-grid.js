@@ -32,6 +32,7 @@ const DataGrid = ({ columns, data, keyName, onChange }) => {
          return (item.key === editModeRow.key ? editModeRow : item);
       });
       setEditMode(false);
+      setEditModeRow(null);
       onChange(data);
    };
 
