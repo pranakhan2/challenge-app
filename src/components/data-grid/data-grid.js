@@ -10,6 +10,12 @@ const DataGrid = ({ columns, data, keyName }) => {
       currency: 'USD',
    });
 
+   const handleRowClick = (rowKey) => {
+      return (e) => {
+         console.log("row click: ", rowKey);
+      }; 
+   };
+
    return (
       <div className="scroll-box">
          <table className="data-grid">
@@ -22,7 +28,7 @@ const DataGrid = ({ columns, data, keyName }) => {
             </thead>
             <tbody>
                {data.map((row) => {
-                  return (<tr key={row[keyName]}>
+                  return (<tr key={row[keyName]} onClick={handleRowClick(row[keyName])}>
                      {columns.map((column, index) => {
                         if (column.type && column.type === "link") {
                            return (<td key={column.key}><Button variant="link">{column.label}</Button></td>);

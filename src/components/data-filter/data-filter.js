@@ -97,10 +97,9 @@ const DataFilter = ({ columns, onChange }) => {
 
    const removeFilter = (filter) => {
       return () => {
-         console.log("Remove Filter Closure: ", filter);
-         let filters = [];
-         filters = enabledFilters.filter((f) => (f => f === filter));
-         console.log(filters);
+         const filters = enabledFilters.filter((f) => { 
+            return f !== filter;
+         });
          setEnabledFilters(filters);
          onChange(filters);
       };
@@ -156,8 +155,9 @@ const DataFilter = ({ columns, onChange }) => {
             </Col>
          </Row>
          {enabledFilters.map((filter, index) => {
+            const filterKey = `${filter.key}-${index}`;
             return (
-               <Row className="active-filter-row" key={`${filter.key}-${index}`}>
+               <Row className="active-filter-row" key={filterKey}>
                <Col>
                   Selected Field: <b>{filter.label}</b>
                </Col>
