@@ -63,6 +63,7 @@ function App() {
    const calculateSummaryGridData = (data) => {
       //calculate summary grid data
       return [{
+         key: "summaryRow",
          total_projects: data.length,
          budget_total: data.reduce(function(sum, project) {
             return sum + project.budget;
