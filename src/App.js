@@ -87,6 +87,11 @@ function App() {
       setFilteredData(data);
       setSummaryGridData(calculateSummaryGridData(data));
    };
+
+   const onDataChange = (data) => {
+      setFilteredData(data);
+      //alert("Row Saved.");
+   };
    
    return (
       <div className="App">
@@ -122,6 +127,7 @@ function App() {
                      keyName="key"
                      columns={dataGridColumns}
                      data={filteredData}
+                     onChange={onDataChange}
                   />
                </Col>
             </Row>

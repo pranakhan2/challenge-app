@@ -32,7 +32,7 @@
   }
 
   .scroll-box {
-    height: 375px;
+    height: 425px;
     overflow-y: scroll;
     border-bottom: 1px solid #ddd;
   }
